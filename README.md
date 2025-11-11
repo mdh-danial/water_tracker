@@ -17,3 +17,11 @@ The registration page follows a similar design to the login page, but contains a
 The index page allows user to see their progress for the day in the form of a 'glass' of water as well as a progress checker beneath it. Below these are three buttons that allows user to fill their daily glass by +250 ml, +500ml and even be able to reset their progress. Upon clicking these buttons, the js script sends a fetch request of POST method to their respective routes in app.py in order to update the database of the change in the water amount per day. This allows the user to close the website and come back later to see that their progress has not been lost.
 
 The history page displays the user's progress for the past month up till the current day. It follows a similar UI as the homepage, where the user will see a calendar of glasses, each filled with water according to their progress for that respective day.  The information is managed by a function defined in helpers.py and called in app.py. This function deletes information before a month ago and ensures that the days between last month and the current day are added into the database. This is done using pythons datetime and dateutil library, namely datetime, timedelta and relativedelta
+
+## Installation
+- fork and clone repo
+- install necessary items as per requirements.txt
+```bash
+cd water_tracker
+flask run
+```
