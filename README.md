@@ -18,10 +18,26 @@ The index page allows user to see their progress for the day in the form of a 'g
 
 The history page displays the user's progress for the past month up till the current day. It follows a similar UI as the homepage, where the user will see a calendar of glasses, each filled with water according to their progress for that respective day.  The information is managed by a function defined in helpers.py and called in app.py. This function deletes information before a month ago and ensures that the days between last month and the current day are added into the database. This is done using pythons datetime and dateutil library, namely datetime, timedelta and relativedelta
 
+## Prerequisites
+
+Before running this project, make sure you have the following installed:
+
+- [Python 3.10+](https://www.python.org/downloads/)
+- [pip](https://pip.pypa.io/en/stable/installation/)
+- [Flask](https://flask.palletsprojects.com/)
+- Git (for cloning the repository)
+
+---
+
 ## Installation
-- fork and clone repo
-- install necessary items as per requirements.txt
-```bash
-cd water_tracker
-flask run
-```
+
+1. **Fork** this repository and **clone** it to your local machine:
+   ```bash
+   git clone https://github.com/mdh-danial/water_tracker.git
+   cd water_tracker
+   pip install -r requirements.txt
+   flask run
+   ```
+   then click on the link http://127.0.0.1:5000
+   
+
