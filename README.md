@@ -38,6 +38,6 @@ Before running this project, make sure you have the following installed:
    pip install -r requirements.txt
    flask run
    ```
-   then click on the link http://127.0.0.1:5000
+2. then click on the link -http://127.0.0.1:5000-
    
 
