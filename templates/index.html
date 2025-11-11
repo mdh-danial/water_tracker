@@ -1,0 +1,89 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    test
+{% endblock %}
+
+{% block main %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-success d-flex align-items-center justify-content-center position-absolute top-0 start-0 w-100 m-0 rounded-0" style="margin-top: 56px !important; z-index: 1000;" role="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill me-2" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                    </svg>
+                    <div>{{ message }}</div>
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <!-- glass -->
+    <h1 style="margin-top: 20px;">Drink up!</h1>
+    <div class="box-one">
+        <div class="water" id="water" style="height: 0%;"></div>
+        <span class="percentage" id="percentage">0%</span>
+    </div>
+
+    <!-- Progress checker -->
+    <div style="margin-top: 10px; font-size: 1.2rem;">
+        <p><strong id="current">{{ session["current"] }}</strong> ml / <strong id="goal">{{ session["goal"] | round }}</strong> ml</p>
+    </div>
+
+    <!-- Add water function -->
+    <div>
+        <button onclick="addWater(250)">+ 250ml</button>
+        <button onclick="addWater(500)">+ 500ml</button>
+        <button onclick="reset()">Reset</button>
+    </div>
+
+    <script>
+        // Emit session values as valid JS literals
+        let currentAmount = JSON.parse("{{ session.get('current', 0) | tojson }}");
+        let goalAmount = JSON.parse("{{ session.get('goal', 1) | tojson }}");
+
+        function updateGlass() {
+            const percentage = Math.min((currentAmount / Math.max(goalAmount, 1)) * 100, 100);
+            const water = document.getElementById('water');
+            const percentageText = document.getElementById('percentage');
+            const currentText = document.getElementById('current');
+
+            water.style.height = percentage + '%';
+            percentageText.textContent = Math.round(percentage) + '%';
+            currentText.textContent = currentAmount;
+
+            if (percentage >= 100) {
+                water.style.background = 'linear-gradient(to top, #11998e 0%, #38ef7d 100%)';
+            } else {
+                water.style.background = 'linear-gradient(to top, #4facfe 0%, #00f2fe 100%)';
+            }
+        }
+
+        function addWater(amount) {
+            fetch("/add_water", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ amount: amount })
+            })
+            .then(response => response.json())
+            .then(data => {
+                currentAmount = data.updated_current;
+                updateGlass();
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        function reset() {
+            fetch("/reset_water", { method: "POST" })
+            .then(response => response.json())
+            .then(data => {
+                currentAmount = data.reset_current;
+                updateGlass();
+            })
+            .catch(error => console.error("Error:", error));
+        }
+
+        // Initialize on page load
+        updateGlass();
+    </script>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+
+<!-- planning to input Drink! as long as daily quota not reached -->
+{% block title %}
+    Welcome!
+{% endblock %}
+
+{% block main %}
+    <!-- Where each page has it's own html stuff -->
+
+    <div class="centralize">
+
+        <!-- Login box -->
+        <div class="glass-container">
+            <div class="login-box">
+                <h2>Register</h2>
+
+                <form action="{{ url_for('register') }}" method="POST">
+                    {% set flashes = get_flashed_messages(with_categories=True) %}
+                    <input type="text" id="username" name="username" required placeholder="Username">
+                    <div style="min-height: 5px;">
+                        {% for category, message in flashes %}
+                            {% if category == "username_error" %}
+                                <div class="text-danger mt-1" style="font-size: small;">{{ message }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <input type="password" id="password" name="password" required placeholder="Password">
+                    <input type="password" id="confirmation" name="confirmation" required placeholder="Confirm Password">
+                    <div style="min-height: 5px;">
+                        {% for category, message in flashes %}
+                            {% if category == "password_error" or category == "confirmation_error" or category == "match_error" %}
+                                <div class="text-danger mt-1" style="font-size: small;">{{ message }}</div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
+                    <button type="submit">Create Account</button>
+
+                    <p>Already have an account? <a href="/login" id="login">Login</a></p>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

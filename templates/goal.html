@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Set your goal!
+{% endblock %}
+
+{% block main %}
+   <!-- Flash messages: sits below navbar, not fixed -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-success d-flex align-items-center justify-content-center position-absolute top-0 start-0 w-100 m-0 rounded-0" style="margin-top: 56px !important; z-index: 1000;" role="alert">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-check-circle-fill me-2" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </svg>
+                <div>{{ message }}</div>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<div class="centralize" style="padding-top: 40px;">
+        <!-- Heading -->
+         {% if not session["goal"] %}
+            <h1 class="tracking-in-expand mt-4">First, a few questions...</h1>
+        {% else %}
+            <h1 class="tracking-in-expand mt-4">Let's set new goals!</h1>
+        {% endif %}
+
+        <form action="/goal" method="POST" class="p-4 rounded shadow-sm bg-light" style="max-width: 400px; margin: auto;">
+            <h4 class="mb-3 text-center">Set Your Water Intake Goal 💧</h4>
+
+            <!-- Weight Input -->
+            <div class="mb-3">
+                <label for="weight" class="form-label fw-semibold">Your Weight (kg)</label>
+                <input type="number" name="weight" id="weight" class="form-control" min="1" step="0.1" placeholder="e.g., 70" required>
+            </div>
+
+            <!-- Activity Level -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Activity Level</label>
+                <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="activity" value="1" required>
+                    🪑 Sedentary — Little to no exercise
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="activity" value="2">
+                    🚶 Light — Light exercise 1–3 days/week
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="activity" value="3">
+                    🏃 Moderate — Moderate exercise 3–5 days/week
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="activity" value="4">
+                    🏋️ Very Active — Intense exercise 6–7 days/week
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="activity" value="5">
+                    🔥 Rigorous — Heavy training or outdoor work daily
+                </label>
+                </div>
+            </div>
+
+            <!-- Age Group -->
+            <div class="mb-3">
+                <label class="form-label fw-semibold">Age Group</label>
+                <div class="list-group">
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="age" value="1" required>
+                    🧒 Under 18
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="age" value="2">
+                    🧍 19–40
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="age" value="3">
+                    👨‍🦳 41–60
+                </label>
+                <label class="list-group-item">
+                    <input class="form-check-input me-1" type="radio" name="age" value="4">
+                    👴 61 and above
+                </label>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary px-4 mt-3">
+                Calculate 💧
+                </button>
+            </div>
+        </form>
+
+    </div>
+{% endblock %}

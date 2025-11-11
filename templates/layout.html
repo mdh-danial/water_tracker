@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <!-- initialise html and compatibility for mobile devices-->
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1" , width="device-width">
+
+        <!-- include bootstrap's css and js to be able to use its functionalities-->
+        <!-- http://getbootstrap.com/docs/5.3/ -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+            crossorigin="anonymous"></script>
+
+        <!-- Sets the favicon of the webpage -->
+        <link href="/static/glass-of-water.png" rel="icon">
+
+        <!-- Refers to your css for styling-->
+        <link href="/static/styles.css" rel="stylesheet">
+
+        <title>Water Tracker: {% block title %}{% endblock %}</title>
+
+    </head>
+
+    <body>
+        <!-- Offcanvas nav bar -->
+        <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
+        <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+            <div class="container-fluid">
+                
+                <!-- Nav bar title (can add image + text here)-->
+                <a class="navbar-brand" href="/">
+                    <img src="/static/glass-of-water.png" alt="Logo" width="30" height="24" class="d-inline-block align-text-top">
+                    Water Tracker
+                </a>
+
+                <!-- Options icon-->
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                    aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                    aria-labelledby="offcanvasNavbarLabel">
+
+                    <!-- Offcanvas header -->
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+
+                    <!-- Offcanvas body (include href in #)-->
+                    <div class="offcanvas-body">
+                        {% if session["user_id"] %}
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+                            <!-- Link in offcanvas menu -->
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/">Home</a>
+                            </li>
+
+                            <!-- Link in offcanvas menu -->
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/history">History</a>
+                            </li>
+
+                            <!-- Link in offcanvas menu -->
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/goal">Reset Goals</a>
+                            </li>
+
+                            <!-- Logout link in offcanvas menu -->
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/logout">Log out</a>
+                            </li>
+                        </ul>
+
+                        {% else %}
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+
+                            <!-- Link in offcanvas menu -->
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/register">Register</a>
+                            </li>
+
+                            <!-- Link in offcanvas menu -->
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="/login">Log in</a>
+                            </li>
+                        </ul>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main part of extended HTML -->
+        <main class="container py-5 text-center">
+            {% block main %}{% endblock %}
+        </main> 
+    </body>
+</html>

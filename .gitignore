@@ -1,0 +1,34 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.so
+
+# ---- Virtual environments ----
+venv/
+.env/
+env/
+.venv/
+
+# ---- Flask ----
+instance/
+*.log
+
+# ---- Database ----
+*.db
+*.sqlite3
+
+# ---- Environment / Secrets ----
+.env
+*.key
+*.pem
+
+# ---- Build / Packaging ----
+*.egg-info/
+build/
+dist/
+
+# ---- OS / Editor files ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

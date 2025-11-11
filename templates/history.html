@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+<h1 style="margin-top: 25px;">Water Intake History</h1>
+
+{% for month_name, dates in dates_by_month.items() %}
+    <h2 style="margin-top: 30px; margin-bottom: 15px;">{{ month_name }}</h2>
+    
+    <div class="parent">
+        {% for current_date in dates %}
+            {% set date_str = current_date.strftime('%Y-%m-%d') %}
+            {% set amount = intake_dict.get(date_str, 0) %}
+            {% set percentage = ((amount / goal * 100) if goal else 0) | round %}
+            
+            {% if amount >= goal %}
+              <div class="date goal-reached" style="--fill: {{ percentage }}%;">
+            {% elif amount > 0 %}
+              <div class="date in-progress" style="--fill: {{ percentage }}%;">
+            {% else %}
+              <div class="date">
+            {% endif %}
+
+                <div style="position: absolute; top: 5px; left: 8px; font-size: 0.8rem; color: #666;">
+                    {{ current_date.strftime('%d') }}
+                </div>
+                <div style="font-size: 0.9rem; margin-top: 20px;">
+                    {{ amount | int }} ml
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+
+<script>
+  window.addEventListener('load', () => {
+    window.scrollTo({
+      top: document.body.scrollHeight,
+      behavior: 'smooth'
+    });
+  });
+</script>
+
+{% endblock %}

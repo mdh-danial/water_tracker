@@ -1,0 +1,277 @@
+@keyframes tracking-in-expand {
+  0% {
+    letter-spacing: -0.5em;
+    opacity: 0;
+  }
+  40% {
+    opacity: 0.6;
+  }
+  100% {
+    letter-spacing: normal;
+    opacity: 1;
+  }
+}
+
+.centralize {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ gap: 1px;
+ position: relative;
+}
+
+.tracking-in-expand {
+  animation: tracking-in-expand 1.25s ease-out both;
+  font-size: 3rem;
+  text-align: center;
+}
+
+* {
+	margin: 0;
+	box-sizing: border-box;
+	font-family: 'Poppins', sans-serif;
+}
+
+main {
+	padding-top: 160px; /* match navbar height */
+	padding-bottom: 40px; /* optional extra spacing at bottom */
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.alert {
+    margin: 0;           /* remove default Bootstrap margin */
+    border-radius: 0;    /* flat edges, aligns with navbar */
+}
+
+/* Body styles: center content on the page */
+body {
+  min-height: 100vh;             /* allow content to grow naturally */
+  display: flex;             /* Use Flexbox for easy centering */
+  justify-content: center;   /* Center horizontally */
+  flex-direction: column; /* allow stacking of content */
+}
+
+/* Glass container styles */
+.glass-container {
+  width: 300px;                        /* Set fixed width */
+  min-height: 350px;                       /* Set allow container to grow if content expands */
+  background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  border-radius: 10px;                  /* Rounded corners */
+  border: 1px solid #0000004f;         /* Slightly visible border */
+  backdrop-filter: blur(5px);           /* Blur whatever is behind the box */
+  -webkit-backdrop-filter: blur(5px);   /* Safari support */
+  overflow: visible;
+  position: relative;                 /* keep pseudo-element positioned correctly */
+  padding: 20px;
+}
+
+/* Pseudo-element to create the frosted glass blur effect */
+.glass-container::before {
+  content: '';                          /* Required for pseudo-element to render */
+  position: absolute;                   /* Position inside container */
+  inset: 1px;                           /* Keep blur inside the border, avoid border blur */
+  border-radius: inherit;               /* Match container's rounded corners */
+  
+  backdrop-filter: blur(5px);           /* Blur whatever is behind the box */
+  -webkit-backdrop-filter: blur(5px);   /* Safari support */
+  
+  z-index: -1;                          /* Place behind the main container content */
+}
+
+
+.login-box {
+	max-width: 250px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+h2 {
+	color: #000000;
+	margin-top: 30px;
+	margin-bottom: -20px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	margin-top: 20px;
+}
+
+input {
+	padding: 10px;
+	margin-top: 25px;
+	border: none;
+	border-radius: 10px;
+	background: transparent;
+	border: 1px solid #5d5d5d;
+	color: #5d5d5d;
+	font-size: 13px;
+}
+
+input::placeholder {
+	color: #5d5d5d;
+}
+
+input:focus {
+	outline: none;
+}
+
+.options {
+	display: flex;
+	align-items: center;
+	margin-top: 15px;
+	font-size: 12px;
+	color: #5d5d5d;
+}
+
+.options input {
+	margin-right: 5px;
+	margin-top: 0px;
+}
+
+.options a {
+	text-decoration: none;
+	color: #5d5d5d;
+	margin-left: auto;
+}
+
+button {
+	background: black;
+	color: white;
+	padding: 10px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	margin-top: 15px;
+}
+
+button:hover {
+	background: transparent;
+	color: #2e2e2e;
+	outline: 1px solid #2e2e2e;
+}
+
+p {
+	font-size: 12px;
+	color: #5d5d5d;
+	margin-top: 15px;
+}
+
+#register {
+	text-decoration: none;
+	color: #5d5d5d;
+	font-weight: bold;
+}
+
+#login {
+	text-decoration: none;
+	color: #5d5d5d;
+	font-weight: bold;
+}
+
+.box-one {
+	background: rgba(200, 220, 255, 0.1);
+	border-left:5px solid #5d5d5d ;
+	border-right:5px solid #5d5d5d ;
+	border-bottom:5px solid #5d5d5d ;
+	border-bottom-left-radius: 20px;
+	border-bottom-right-radius: 20px;         /* adds curvature to bottom of glass */
+	/*padding: 20px;*/
+	margin-top: 20px;
+	height: 350px;
+	width: 220px;
+	position: relative;
+	overflow: hidden;
+}
+
+.water {
+	position: absolute;
+	bottom: 0; /* stick it to the bottom of the box */
+	width: 100%; /* takes up 100% of the glass width */
+	height: 0%;
+	background: linear-gradient(to top, #4facfe 0%, #00f2fe 100%);
+	transition: height 0.5s ease;
+}
+
+water::before { /* add content to parent element, without affecting parent element */
+	content: '';    /* required to make pseudo element appear */
+	position: absolute;    /* follows parent's position */
+	top: -10px;
+	left: -50%;
+	width: 200%;
+	height: 20px;
+	background: rgba(255, 255, 255, 0.3);
+	border-radius: 45%;
+	animation: wave 3s linear infinite;
+}
+
+@keyframes wave {
+	0% {
+		transform: translateX(0) translateY(0);
+	}
+	50% {
+		transform: translateX(-25%) translateY(-5px);
+	}
+	100% {
+		transform: translateX(-50%) translateY(0);
+	}
+}
+
+.percentage {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10;
+	font-size: 2rem;
+	font-weight: bold;
+	color: #333;
+	text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+}
+
+/* for CALENDAR IN HISTORY */
+.parent {
+  display: grid;
+  grid-template-columns: repeat(7, 85px); /* fixed width per box */
+  grid-auto-rows: 120px;                   /* fixed height per box */
+  gap: 10px;
+  justify-content: center; /* keeps the grid centered if the screen is wider */
+  padding: 20px;
+}
+
+.date {
+  border-bottom: 2px solid #ccc;
+  border-left: 2px solid #ccc;
+  border-right: 2px solid #ccc;
+  border-radius: 8px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  position: relative;
+  transition: transform 0.2s;
+}
+
+.date:hover {
+  transform: scale(1.05);
+  cursor: pointer;
+}
+
+.date.in-progress {
+    background: linear-gradient(to top, #00f2fe 0%, #4facfe var(--fill), transparent var(--fill));
+}
+
+.date.goal-reached {
+    background: linear-gradient(to top, #38ef7d 0%, #11998e var(--fill), transparent var(--fill));
+}
+
+
+
